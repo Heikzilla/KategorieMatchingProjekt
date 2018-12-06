@@ -11,7 +11,19 @@
     public $shop;
     public $portal;
 
-class Run
-{
+include_once('../FileManager/fileconverter.php');
+include_once('../FileManager/managecolumns.php');
 
-}
+
+$fileConverter = new FileConverter;
+$manageColumns = new ManageColumns;
+
+$fileConverter->fileToArray($fileName, $fileSeperator);
+
+$manageColumns->extractColumn($array, $columnTreeName);
+$manageColumns->uniqueEntrys($array);
+
+
+
+
+$fileConverter->arrayToFile($array, $fileName, $fileSeperator);

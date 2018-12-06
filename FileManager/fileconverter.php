@@ -9,7 +9,7 @@
 class FileConverter
 {
     function fileToArray($fileName, $fileSeperator){
-
+    //Read File in to a multidimensional Array. where Array_Key is Column Name
     }
 
     function arrayToFile($array, $fileName, $fileSeperator){
