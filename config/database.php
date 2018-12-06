@@ -10,7 +10,7 @@ class Database
 {
     // SQL Specification
     private $host = "localhost";
-    private $db_name = "KategorienBaum";
+    private $db_name = "Kategorienbaeume";
     private $username = "root";
     private $password = "";
     public $conn;
