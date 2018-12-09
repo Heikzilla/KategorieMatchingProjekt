@@ -26,4 +26,5 @@ $manageColumns->uniqueEntrys($array);
 
 
 
+$manageColumns->addColumn();
 $fileConverter->arrayToFile($array, $fileName, $fileSeperator);
