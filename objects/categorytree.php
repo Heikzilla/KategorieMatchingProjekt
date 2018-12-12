@@ -11,6 +11,7 @@ class CategoryTree
 
     //database connection
     private $conn;
+    #private $tabel_name = 'shop24';
 
     //DatenObjekte
     public $tabel_name;
@@ -29,10 +30,29 @@ class CategoryTree
         $this->conn = $db;
     }
 
-    function read(){
+    function readAll(){
 
         //select all query TEST
-        $query = "SELECT * FROM `" . $tabel_name . "`;";
+        $query = "SELECT * FROM `" . $this->tabel_name . "`;";
+        echo $query;
+        //prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        //execute statement
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    function readID(){
+
+        //select all query TEST
+        $query = "SELECT $this->id FROM `$this->tabel_name` WHERE Oberkategorien = '$this->topcategory' 
+                                                 AND KategorieEbene2 = '$this->categoryLevel2' 
+                                                 AND KategorieEbene3 = '$this->categoryLevel3' 
+                                                 AND KategorieEbene4 = '$this->categoryLevel4' 
+                                                 AND KategorieEbene5 = '$this->categoryLevel5' 
+                                                 AND KategorieEbene6 = '$this->categoryLevel6'";
 
         //prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -41,5 +61,9 @@ class CategoryTree
         $stmt->execute();
 
         return $stmt;
+    }
+
+    function addColumnsToCategoryTreeTable(){
+
     }
 }
