@@ -11,16 +11,23 @@
     public $shop;
     public $portal;
 */
-#include_once "FileManager/fileconverter.php";
+include_once "FileManager/fileconverter.php";
 include_once "FileManager/managecolumns.php";
-#include_once "DBsearchOperator/search.php";
+include_once "DBsearchOperator/search.php";
 
-#$fileConverter = new FileConverter;
+$fileConverter = new FileConverter;
 $manageColumns = new ManageColumns();
-#$DBsearchOperator = new Search();
-#$fileConverter->fileToArray($fileName, $fileSeperator);
+$DBsearchOperator = new Search();
 
-#$manageColumns->extractColumn($array, $columnTreeName);
+$fileName = '/home/hg/workspace/psm_preprozess/yoho/input/export_feed_short.csv';
+$fileSeperator = '|';
+$columnTreeName = 'Kategoriebaum';
+
+$array = $fileConverter->fileToArray($fileName, $fileSeperator);
+
+$treeArray = $manageColumns->extractColumn($array, $columnTreeName);
+
+var_dump($treeArray);
 
 
 $array = array( "1" => "Möbel / Tische / Beistelltische / Ablagetische",
@@ -34,12 +41,15 @@ $array = array( "1" => "Möbel / Tische / Beistelltische / Ablagetische",
                 "9" => "Heimtextilien / Gardinen & Vorhänge / Gardinenstangen / Gardinenstangen nach Maß",
                 "10" => "Heimtextilien / Gardinen & Vorhänge / Gardinenstangen / Gardinenstangen nach Maß"
     );
-$returnVal = $manageColumns->uniqueEntrys($array);
-var_dump($returnVal);
+
+$returnVal = $manageColumns->uniqueEntrys($treeArray);
+
 
 foreach($returnVal as $string){
     $result = $manageColumns->CategoryLineToArray($string);
     var_dump($result);
+
+    $IDlog[] = $DBsearchOperator->getShopId($result);
 }
 
 

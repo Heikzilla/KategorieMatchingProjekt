@@ -11,17 +11,17 @@ class CategoryTree
 
     //database connection
     private $conn;
+    private $topcategory;
+    private $categoryLevel2;
+    private $categoryLevel3;
+    private $categoryLevel4;
+    private $categoryLevel5;
+    private $categoryLevel6;
     #private $tabel_name = 'shop24';
 
     //DatenObjekte
     public $tabel_name;
     public $id;
-    public $topcategory;
-    public $categoryLevel2;
-    public $categoryLevel3;
-    public $categoryLevel4;
-    public $categoryLevel5;
-    public $categoryLevel6;
     public $cpcVal;
     public $cpcMobileVal;
 
@@ -44,16 +44,24 @@ class CategoryTree
         return $stmt;
     }
 
-    function readID(){
+    function readID($array, $tableName = 'yoho', $idColumn = 'YOHO_ID'){
+        $this->tabel_name = $tableName;
+        $this->id = $idColumn;
 
         //select all query TEST
-        $query = "SELECT $this->id FROM `$this->tabel_name` WHERE Oberkategorien = '$this->topcategory' 
+       /* $query = "SELECT $this->id FROM `$this->tabel_name` WHERE Oberkategorien = '$this->topcategory'
                                                  AND KategorieEbene2 = '$this->categoryLevel2' 
                                                  AND KategorieEbene3 = '$this->categoryLevel3' 
                                                  AND KategorieEbene4 = '$this->categoryLevel4' 
                                                  AND KategorieEbene5 = '$this->categoryLevel5' 
-                                                 AND KategorieEbene6 = '$this->categoryLevel6'";
+                                                 AND KategorieEbene6 = '$this->categoryLevel6'";*/
 
+        $query = "SELECT $this->id FROM `$this->tabel_name` WHERE Oberkategorien = '$array[0]' 
+                                                                 AND KategorieEbene2 = '$array[1]' 
+                                                                 AND KategorieEbene3 = '$array[2]' 
+                                                                 AND KategorieEbene4 = '$array[3]' 
+                                                                 AND KategorieEbene5 = '$array[4]' 
+                                                                 AND KategorieEbene6 = '$array[5]'";
         //prepare query statement
         $stmt = $this->conn->prepare($query);
 
@@ -63,7 +71,9 @@ class CategoryTree
         return $stmt;
     }
 
-    function addColumnsToCategoryTreeTable(){
+    #function addColumnsToCategoryTreeTable(){
+
+
 
     }
 }

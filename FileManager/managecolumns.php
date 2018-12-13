@@ -9,7 +9,11 @@
 class ManageColumns{
 
     function extractColumn($array, $columnTreeName){
-
+        $tempArr = array();
+        foreach($array as $lineNum => $rows){
+            $tempArr[] = $array[$lineNum][$columnTreeName];
+        }
+        return $tempArr;
     }
 
     function uniqueEntrys($array){
@@ -18,6 +22,13 @@ class ManageColumns{
 
     function addColumn($array, $array2){
 
+        $array2;
+
+        foreach ($array as $lineNum => $row){
+            $row[$lineNum] = array_merge($row[$lineNum], array(
+
+            ));
+        }
     }
 
     function CategoryLineToArray($string){

@@ -6,29 +6,40 @@
  * Time: 19:59
  */
 
-include_once("../config/database.php");
-include_once("../objects/categorytree.php");
+include_once ("../config/database.php");
+include_once ("../objects/categorytree.php");
+class Search{
 
-$database = new Database();
-$db = $database->getConnection();
+    private $tree;
 
-$tree = new CategoryTree($db);
-$tree->tabel_name = 'yoho';
-$tree->id = 'YOHO_ID';
-$tree->topcategory;
-
-
-
-    function getShopId($array){
-
-
-        $pattern = '/([a-zA-ZöäüÖÄÜß & ]+)\s*\W\s*/';
-        #preg_match_all();
-
-
-        #$tree->readID();
+    function getDBconnection(){
+        $database = new Database();
+        return $db = $database->getConnection();
     }
 
-    function getPortalData($id){
+    function getCategoryTree($db){
+        return $tree = new CategoryTree($db);
+    }
+
+    function getTableName($var){
+        return $this->tabel_name = $var;
+    }
+
+    function getTableID($var){
+        return $this->id = $var;
+    }
+
+    function getShopId($array, $tableName = 'yoho', $idColumn = 'YOHO_ID')
+    {
+
+        $this->tabel_name = $tableName;
+        $this->id = $idColumn;
+
+        return $id = $tree->readID($array);
+    }
+
+    function getPortalData($id)
+    {
 
     }
+}
