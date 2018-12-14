@@ -5,8 +5,8 @@
  * Date: 08.12.2018
  * Time: 18:19
  */
-
-class CategoryTree
+include_once '../config/database.php';
+class CategoryTree extends Database
 {
 
     //database connection
@@ -25,8 +25,9 @@ class CategoryTree
     public $cpcVal;
     public $cpcMobileVal;
 
-    public function __construct($db)
+    public function __construct()
     {
+        $db = $this->getConnection();
         $this->conn = $db;
     }
 
@@ -48,20 +49,12 @@ class CategoryTree
         $this->tabel_name = $tableName;
         $this->id = $idColumn;
 
-        //select all query TEST
-       /* $query = "SELECT $this->id FROM `$this->tabel_name` WHERE Oberkategorien = '$this->topcategory'
-                                                 AND KategorieEbene2 = '$this->categoryLevel2' 
-                                                 AND KategorieEbene3 = '$this->categoryLevel3' 
-                                                 AND KategorieEbene4 = '$this->categoryLevel4' 
-                                                 AND KategorieEbene5 = '$this->categoryLevel5' 
-                                                 AND KategorieEbene6 = '$this->categoryLevel6'";*/
-
         $query = "SELECT $this->id FROM `$this->tabel_name` WHERE Oberkategorien = '$array[0]' 
                                                                  AND KategorieEbene2 = '$array[1]' 
                                                                  AND KategorieEbene3 = '$array[2]' 
                                                                  AND KategorieEbene4 = '$array[3]' 
                                                                  AND KategorieEbene5 = '$array[4]' 
-                                                                 AND KategorieEbene6 = '$array[5]'";
+                                                                 AND KategorieEbene6 = '$array[5]';";
         //prepare query statement
         $stmt = $this->conn->prepare($query);
 
@@ -73,7 +66,4 @@ class CategoryTree
 
     #function addColumnsToCategoryTreeTable(){
 
-
-
-    }
 }

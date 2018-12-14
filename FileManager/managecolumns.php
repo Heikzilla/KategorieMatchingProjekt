@@ -6,7 +6,8 @@
  * Time: 18:14
  */
 
-class ManageColumns{
+class ManageColumns
+{
 
     function extractColumn($array, $columnTreeName){
         $tempArr = array();
@@ -55,6 +56,4 @@ class ManageColumns{
             return false;
         }
     }
-
-
 }
