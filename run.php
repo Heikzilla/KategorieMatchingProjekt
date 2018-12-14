@@ -14,10 +14,12 @@
 include_once "FileManager/fileconverter.php";
 include_once "FileManager/managecolumns.php";
 include_once "DBsearchOperator/search.php";
+include_once "objects/categorytree.php";
 
 $fileConverter = new FileConverter;
 $manageColumns = new ManageColumns();
-$DBsearchOperator = new Search();
+#$DBsearchOperator = new Search();
+$test = new CategoryTree();
 
 $fileName = '/home/hg/workspace/psm_preprozess/yoho/input/export_feed_short.csv';
 $fileSeperator = '|';
@@ -45,15 +47,17 @@ $array = array( "1" => "Möbel / Tische / Beistelltische / Ablagetische",
 $returnVal = $manageColumns->uniqueEntrys($treeArray);
 
 
+echo $test->addColumnsToCategoryTreeTable();
+
+
+die();
+
 foreach($returnVal as $string){
     $result = $manageColumns->CategoryLineToArray($string);
     var_dump($result);
 
     $IDlog[] = $DBsearchOperator->getShopId($result);
 }
-
-
-die();
 $manageColumns->addColumn();
 $fileConverter->arrayToFile($array, $fileName, $fileSeperator);
 

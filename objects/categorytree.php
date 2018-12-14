@@ -27,14 +27,13 @@ class CategoryTree extends Database
 
     public function __construct()
     {
-        $db = $this->getConnection();
-        $this->conn = $db;
+        $this->conn = $this->getConnection();
     }
 
     function readAll(){
 
         //select all query TEST
-        $query = "SELECT * FROM `" . $this->tabel_name . "`;";
+        $query = "SELECT * FROM `$this->tabel_name`;";
         echo $query;
         //prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -64,6 +63,6 @@ class CategoryTree extends Database
         return $stmt;
     }
 
-    #function addColumnsToCategoryTreeTable(){
+    function addColumnsToCategoryTreeTable(){ return "Connection works. \n";}
 
 }
