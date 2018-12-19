@@ -5,12 +5,14 @@
  * Date: 08.12.2018
  * Time: 18:19
  */
-include_once '../config/database.php';
+include_once(dirname(__DIR__)."/config/database.php");
+//Old Path that works out but is not dynamic for later.
+#require_once ("/home/hg/PhpstormProjects/KategorieMatchingProjekt/config/database.php");
 class CategoryTree extends Database
 {
 
     //database connection
-    private $conn;
+    public $conn;
     private $topcategory;
     private $categoryLevel2;
     private $categoryLevel3;
@@ -48,12 +50,16 @@ class CategoryTree extends Database
         $this->tabel_name = $tableName;
         $this->id = $idColumn;
 
-        $query = "SELECT $this->id FROM `$this->tabel_name` WHERE Oberkategorien = '$array[0]' 
-                                                                 AND KategorieEbene2 = '$array[1]' 
-                                                                 AND KategorieEbene3 = '$array[2]' 
-                                                                 AND KategorieEbene4 = '$array[3]' 
-                                                                 AND KategorieEbene5 = '$array[4]' 
-                                                                 AND KategorieEbene6 = '$array[5]';";
+
+        $textmodul = '';
+        for($i = 2; count($array) <= $i; $i++){
+
+            $textmodul = $textmodul . " AND KategorieEbene$i = '$array[$i]'";
+        }
+        $textmodul = $textmodul . ";";
+
+        var_dump($textmodul);
+        $query = "SELECT $this->id FROM `$this->tabel_name` WHERE Oberkategorien = '$array[1]'" . $textmodul;
         //prepare query statement
         $stmt = $this->conn->prepare($query);
 

@@ -11,27 +11,27 @@
     public $shop;
     public $portal;
 */
-include_once "FileManager/fileconverter.php";
-include_once "FileManager/managecolumns.php";
-include_once "DBsearchOperator/search.php";
-include_once "objects/categorytree.php";
+include_once("FileManager/fileconverter.php");
+include_once("FileManager/managecolumns.php");
+include_once("DBsearchOperator/search.php");
+include_once("objects/categorytree.php");
 
 $fileConverter = new FileConverter;
 $manageColumns = new ManageColumns();
-#$DBsearchOperator = new Search();
+$DBsearchOperator = new Search();
 $test = new CategoryTree();
 
 $fileName = '/home/hg/workspace/psm_preprozess/yoho/input/export_feed_short.csv';
 $fileSeperator = '|';
 $columnTreeName = 'Kategoriebaum';
 
-$array = $fileConverter->fileToArray($fileName, $fileSeperator);
-
-$treeArray = $manageColumns->extractColumn($array, $columnTreeName);
-
-var_dump($treeArray);
 
 
+#$array = $fileConverter->fileToArray($fileName, $fileSeperator);
+
+#$treeArray = $manageColumns->extractColumn($array, $columnTreeName);
+
+//Static Data
 $array = array( "1" => "Möbel / Tische / Beistelltische / Ablagetische",
                 "2" => "Haus & Garten / Renovieren & Wohnen / Bodenbeläge / Sockelleisten",
                 "3" => "Haus & Garten / Renovieren & Wohnen / Bodenbeläge / Sockelleisten",
@@ -44,13 +44,9 @@ $array = array( "1" => "Möbel / Tische / Beistelltische / Ablagetische",
                 "10" => "Heimtextilien / Gardinen & Vorhänge / Gardinenstangen / Gardinenstangen nach Maß"
     );
 
-$returnVal = $manageColumns->uniqueEntrys($treeArray);
+$returnVal = $manageColumns->uniqueEntrys($array);
 
-
-echo $test->addColumnsToCategoryTreeTable();
-
-
-die();
+#var_dump($returnVal);
 
 foreach($returnVal as $string){
     $result = $manageColumns->CategoryLineToArray($string);
@@ -58,6 +54,15 @@ foreach($returnVal as $string){
 
     $IDlog[] = $DBsearchOperator->getShopId($result);
 }
+
+var_dump($IDlog);
+die();
+echo $test->addColumnsToCategoryTreeTable();
+
+
+
+
+
 $manageColumns->addColumn();
 $fileConverter->arrayToFile($array, $fileName, $fileSeperator);
 

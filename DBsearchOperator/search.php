@@ -5,8 +5,8 @@
  * Date: 06.12.18
  * Time: 19:59
  */
-#include_once "../objects/categorytree.php";
-class Search #extends CategoryTree
+include_once(dirname(__DIR__)."/objects/categorytree.php");
+class Search extends CategoryTree
 {
 
     function getShopId($array, $tableName = 'yoho', $idColumn = 'YOHO_ID')
