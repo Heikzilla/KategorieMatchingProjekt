@@ -59,7 +59,7 @@ class CategoryTree extends Database
         $textmodul = $textmodul . ";";
 
         var_dump($textmodul);
-        $query = "SELECT $this->id FROM `$this->tabel_name` WHERE Oberkategorien = '$array[1]'" . $textmodul;
+        $query = "SELECT $this->id FROM $this->tabel_name WHERE Oberkategorien = '$array[1]'" . $textmodul;
         //prepare query statement
         $stmt = $this->conn->prepare($query);
 
@@ -67,6 +67,31 @@ class CategoryTree extends Database
         $stmt->execute();
 
         return $stmt;
+    }
+
+    function tableExists($shop){
+
+        $query = "SELECT count(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '$shop'";
+
+        //prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        //execute statement
+        $stmt->execute();
+
+        //convert return value in to a Array to get a integer
+        $value = $stmt->fetch();
+
+        //Set status
+        $status = false;
+        if ($value[0] == 1){
+            $status = true;
+        }else#if ($value[0] == 0)
+        {
+            die("Sorry, there is no Table which contains $shop.\n");
+        }
+
+        return $status;
     }
 
     function addColumnsToCategoryTreeTable(){ return "Connection works. \n";}

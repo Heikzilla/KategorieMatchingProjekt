@@ -46,7 +46,8 @@ $array = array( "1" => "Möbel / Tische / Beistelltische / Ablagetische",
 
 $returnVal = $manageColumns->uniqueEntrys($array);
 
-#var_dump($returnVal);
+
+$DBsearchOperator->tableExists($shop = 'yoho');
 
 foreach($returnVal as $string){
     $result = $manageColumns->CategoryLineToArray($string);
